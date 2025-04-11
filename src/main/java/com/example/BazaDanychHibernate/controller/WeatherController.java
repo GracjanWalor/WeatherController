@@ -36,10 +36,6 @@ public class WeatherController {
         return weatherService.deleteWeatherDetails(weatherId);
     }
 
-//    @GetMapping("/details/")
-//    public List<LocationDTO> getDetails() {
-//        return weatherService.getTemperaturesStats();
-//    }
 
     @GetMapping("/show/{city}")
     public LocationDTO getCity(@PathVariable String city) {
@@ -57,11 +53,4 @@ public class WeatherController {
     }
 
 }
-
-
-
-// Data godzina (zmienna)
-// Testy | jednostkowe & integracyjne
-// Obsluga bledow: warotsci pol do pol
-//Obsluga bledow (Spring Boot, try catch, )
 
