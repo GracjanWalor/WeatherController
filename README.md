@@ -372,14 +372,6 @@ WeatherController/
 │   │   │       └── (pliki statyczne)
 ├── pom.xml
 ```
-- **controller** zawiera klasy odpowiedzialne za kontrolowanie logiki aplikacji (np. WeatherController).
-
-- **repository** to miejsce, w którym przechowywane są klasy związane z dostępem do bazy danych, takie jak LocationRepository oraz encje (LocationEntity, WeatherDetailsEntity).
-
-- **service** zawiera logikę biznesową (np. WeatherService), w tym klasy obsługujące wyjątki (Errors/), mapowanie danych (Mapper/), oraz obiekty transferu danych (DTO).
-
-- **resources** zawiera konfigurację aplikacji (application.properties) oraz statyczne pliki (np. front-endowe).
-
 ### ⚠️ Komentarz do API
 
 Obecne API może nie zapewniać pełnej **dokładności danych** pogodowych, ponieważ część danych (np. temperatura odczuwalna) jest wprowadzana ręcznie. Aby zwiększyć precyzję i spójność, warto rozważyć **integrację z zewnętrznymi źródłami danych pogodowych**.
