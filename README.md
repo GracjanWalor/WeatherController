@@ -26,6 +26,18 @@ Aplikacja umożliwia:
 
 - 🗃️ Zarządzanie bazą danych z wykorzystaniem Hibernate (JPA).
 
+## 🔒 Bezpieczeństwo i filtrowanie danych
+- **Mapowanie danych:** Aplikacja przetwarza dane za pomocą mapowania, np. w metodach mapperToDTO i mapToWeatherDetailsDTO, aby tylko odpowiednie informacje (np. temperatura, wilgotność) były udostępniane frontendowi, unikając wrażliwych danych.
+
+- **Filtrowanie danych:** W przypadku brakujących lub niekompletnych danych (np. pustych wartości) aplikacja rzuca wyjątek NoFoundDataException, zapobiegając wyświetlaniu niepożądanych informacji.
+
+- **Bezpieczny dostęp:** Dzięki warstwie mapowania (DTO), dane są odpowiednio przetwarzane i udostępniane użytkownikowi, co zapewnia, że tylko dozwolone dane są widoczne.
+
+
+
+
+
+
 ## Instalacja 🚀
 
 Aby zainstalować i skonfigurować projekt na swoim komputerze, wykonaj następujące kroki:
