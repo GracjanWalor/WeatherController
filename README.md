@@ -1,79 +1,72 @@
 # 🌦️ WeatherController 🌦️
 
-**WeatherController** to aplikacja stworzona w języku Java, która umożliwia automatyczne zarządzanie urządzeniami na podstawie danych pogodowych. Dzięki integracji z API pogodowym, aplikacja monitoruje zmiany warunków atmosferycznych (takie jak temperatura, wilgotność, prędkość wiatru).
+**WeatherController** is an application created in Java that allows automatic management of devices based on weather data. By integrating with a weather API, the application monitors changes in atmospheric conditions (such as temperature, humidity, wind speed).
 
-## 🛠️ Technologie:
+## 🛠️ Technologies:
 
-- **Java** – Język programowania.
-- **Spring Framework** – Framework do budowy aplikacji.
-- **Hibernate** – ORM do komunikacji z bazą danych.
-- **Maven** – Narzędzie do zarządzania zależnościami.
-- **API pogodowe** (wttr.in) – Źródło danych pogodowych.
+- **Java** – Programming language.
+- **Spring Framework** – Framework for building applications.
+- **Hibernate** – ORM for database communication.
+- **Maven** – Dependency management tool.
+- **Weather API** (wttr.in) – Weather data source.
 
-## 💻 Funkcjonalność
+## 💻 Functionality
 
-Aplikacja umożliwia:
+The application allows for:
 
-- ✅ Dodawanie miast i pobieranie dla nich danych pogodowych z API.
+- ✅ Adding cities and retrieving weather data for them from the API.
+- 🔁 Updating weather data in the database.
+- 🗑️ Deleting weather data for a specific city or entry.
+- 📈 Generating weather statistics (min/max/average).
+- 🔍 Searching for locations and weather data.
+- 🗃️ Managing the database using Hibernate (JPA).
 
-- 🔁 Aktualizacja danych pogodowych w bazie.
+## 🔒 Security and Data Filtering
 
-- 🗑️ Usuwanie danych pogodowych dla danego miasta lub wpisu.
-
-- 📈 Generowanie statystyk pogodowych (min/max/średnia).
-
-- 🔍 Wyszukiwanie lokalizacji i danych pogodowych.
-
-- 🗃️ Zarządzanie bazą danych z wykorzystaniem Hibernate (JPA).
-
-## 🔒 Bezpieczeństwo i filtrowanie danych
-- **Mapowanie danych:** Aplikacja przetwarza dane za pomocą mapowania, np. w metodach mapperToDTO i mapToWeatherDetailsDTO, aby tylko odpowiednie informacje (np. temperatura, wilgotność) były udostępniane frontendowi, unikając wrażliwych danych.
-
-- **Filtrowanie danych:** W przypadku brakujących lub niekompletnych danych (np. pustych wartości) aplikacja rzuca wyjątek NoFoundDataException, zapobiegając wyświetlaniu niepożądanych informacji.
-
-- **Bezpieczny dostęp:** Dzięki warstwie mapowania (DTO), dane są odpowiednio przetwarzane i udostępniane użytkownikowi, co zapewnia, że tylko dozwolone dane są widoczne.
+- **Data Mapping:** The application processes data through mapping (e.g., in the methods `mapperToDTO` and `mapToWeatherDetailsDTO`) to ensure that only relevant information (e.g., temperature, humidity) is provided to the frontend, avoiding sensitive data.
+  
+- **Data Filtering:** In the case of missing or incomplete data (e.g., empty values), the application throws a `NoFoundDataException`, preventing the display of unwanted information.
+  
+- **Secure Access:** Thanks to the mapping layer (DTO), data is properly processed and provided to the user, ensuring that only allowed data is visible.
 
 
 
+## Installation 🚀
 
+To install and set up the project on your computer, follow these steps:
 
-
-## Instalacja 🚀
-
-Aby zainstalować i skonfigurować projekt na swoim komputerze, wykonaj następujące kroki:
-
-1. **Skopiuj repozytorium na swój komputer** 📂:
+1. **Clone the repository to your computer** 📂:
     ```bash
     git clone https://github.com/your-repo/weather-api.git
     ```
 
-2. **Przejdź do folderu projektu** 📁:
+2. **Go to the project folder** 📁:
     ```bash
     cd weather-api
     ```
 
-3. **Zainstaluj wymagane zależności** 🔧:
-    Używając Node.js i npm:
+3. **Install required dependencies** 🔧:
+    Using Node.js and npm:
     ```bash
     npm install
     ```
 
-4. **Uruchom aplikację** ⚡:
-    Aby uruchomić lokalnie aplikację, wykonaj polecenie:
+4. **Run the application** ⚡:
+    To run the app locally, use the following command:
     ```bash
     npm start
     ```
-    Aplikacja powinna być dostępna pod adresem `http://localhost:8080`. 🌍
+    The app should be available at `http://localhost:8080`. 🌍
 
-### 🧪 Uwaga: Do testowania aplikacji wymagany jest Postman lub inny klient REST API.
+### 🧪 Note: Postman or another REST API client is required for testing the application.
 
 ## 🖥 API Endpoints
 
-### 1.Pobranie danych pogodowych z API dla danego miasta
+### 1. Retrieve weather data from the API for a given city
 
-**Opis: Pobiera dane pogodowe z zewnętrznego API dla podanego miasta (np. temperatura, wilgotność, ciśnienie). Dane są zapisywane w bazie danych i przypisane do konkretnej lokalizacji.**
+**Description:** Retrieves weather data from an external API for the given city (e.g., temperature, humidity, pressure). The data is saved in the database and associated with a specific location.
 
-**Zapytanie:**
+**Request:**
 ```bash
 GET http://localhost:8080/weather/addCity/Barcelona
 ```
@@ -112,11 +105,13 @@ select * from weather_details_entity;
 
 
 
-### 2. Ręczne dodanie miasta i jego danych pogodowych
+### 2. Manually add a city and its weather data
 
-**Opis: Dodaje nowe miasto wraz z ręcznie wprowadzonymi danymi pogodowymi. Jeśli wpis z tą samą datą i godziną już istnieje, zostaje zaktualizowany.**
+**Description:** Adds a new city with manually entered weather data. If an entry with the same date and time already exists, it gets updated.
 
-**Zapytanie:**
+
+
+**Request:**
 ```bash
 GET http://localhost:8080/weather/create
 ```
@@ -154,34 +149,14 @@ select * from weather_details_entity;
 ![Zrzut ekranu 2025-04-12 122023](https://github.com/user-attachments/assets/37b34d74-5437-44b7-b891-6aaf3ee44be5)
 
 
+### 3. Weather Data Update
+**Description:** The application allows for updating weather data for a given city, but when the same city is added again (e.g., with new weather data), a new entry is created in the database. The system treats this as a new update, not a modification of the existing entry.
 
+**For example, if the user adds the city "Barcelona" again, a new entry will appear with the same data but with a new ordinalNumber, along with a new date and time, allowing for tracking changes in the weather data over time.**
 
+### 🔍 Request Before Update:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 3. Aktualizacja danych pogodowych
-**Opis: Aplikacja pozwala na aktualizację danych pogodowych dla danego miasta, ale w przypadku ponownego dodania tego samego miasta (np. z nowymi danymi pogodowymi), zostaje utworzony nowy wpis w bazie danych. System traktuje to jako nową aktualizację, a nie modyfikację istniejącego wpisu.**
-
-**Przykładowo, jeśli użytkownik doda miasto "Barcelona" ponownie, pojawi się nowy wpis z tymi samymi danymi, ale z nowym ordinalNumber oraz datą i godziną, co pozwala na śledzenie historii zmian w danych pogodowych.**
-
-
-### 🔍 Przed aktualizacją:
-
-**Zapytanie:**
+**Request:**
 ```bash
 GET http://localhost:8080/weather/addCity/Barcelona
 ```
@@ -233,11 +208,11 @@ select * from weather_details_entity;
 ![Zrzut ekranu 2025-04-12 131738](https://github.com/user-attachments/assets/68052270-b580-4dd4-9e1f-093b7d1ce9fa)
 
 
-### ✅ Po aktualizacji:
+### ✅ After Update:
 
-**Zapytanie:**
+**Request:**
 
-**Opis: W tej operacji aktualizujemy tylko drugi wpis dla miasta Barcelona, ponieważ w bazie danych nie mamy wcześniej zdefiniowanej temperatury odczuwalnej (feelsLikeC). Chcemy dodać brakującą wartość temperatury odczuwalnej dla tego wpisu.**
+**Description:** In this operation, we are only updating the second entry for the city of Barcelona because the database does not have the "feelsLikeC" (feels-like temperature) value previously defined. We want to add the missing "feelsLikeC" value for this entry.
 
 ```bash
 GET http://localhost:8080/weather/addCity/Barcelona/2
@@ -269,11 +244,10 @@ select * from weather_details_entity;
 ```
 ![Zrzut ekranu 2025-04-12 132153](https://github.com/user-attachments/assets/81a31bb9-c675-41a8-a3d4-3100e59c3015)
 
+### 4. Weather Statistics for a City
+**Description:** Returns weather statistics for a given city by calculating the average, maximum, and minimum values of temperature, pressure, and humidity based on the recorded data.
 
-### 4. Statystyki pogodowe dla miasta
-**Opis: Zwraca statystyki pogodowe dla danego miasta, obliczając średnie, maksymalne i minimalne wartości temperatury, ciśnienia i wilgotności na podstawie zapisanych danych.**
-
-**Zapytanie:**
+**Request:**
 
 ```bash
 GET http://localhost:8080/weather/stats/Barcelona
@@ -296,26 +270,25 @@ GET http://localhost:8080/weather/stats/Barcelona
 }
 ```
 
-### 5.Wyszukiwanie danych pogodowych po nazwie miasta
+### 5. Weather Data Search by City Name
 
-**Opis: Zwraca wszystkie zapisane dane pogodowe dla wybranego miasta, wraz ze szczegółami każdej obserwacji.**
+**Description:** Returns all recorded weather data for the selected city, along with the details of each observation.
 
-
-**Zapytanie:**
+**Request:**
 ```bash
 GET http://localhost:8080/weather/show/Barcelona
 ```
   
-### 6. Usuwanie danych pogodowych po ID
-**Opis: Usuwa wybrane dane pogodowe na podstawie podanego identyfikatora (weatherId) z bazy danych.**
+### 6. Deleting Weather Data by ID
 
+**Description:** Deletes selected weather data based on the provided identifier (weatherId) from the database.
 
-**Zapytanie:**
+**Request:**
+
 ```bash
 DELETE http://localhost:8080/weather/delete/1
 ```
-### 🔍 Przed usunieciem .
-
+### 🔍 Before Removal
 **MySQL:**
 ```sql
 select * from location_entity;
@@ -327,7 +300,7 @@ select * from weather_details_entity;
 ```
 ![Zrzut ekranu 2025-04-12 134707](https://github.com/user-attachments/assets/3202c2ff-55d4-4e33-82b2-e93ab81e4c04)
 
-### ✅ Po usunieciu 
+### ✅ After Removal
 
 
 **MySQL:**
@@ -345,9 +318,10 @@ select * from weather_details_entity;
 
 
 
-## 📂 Struktura projektu
+## 📂 Project Structure
 
-Projekt posiada następującą strukturę katalogów:
+The project has the following directory structure:
+
 
 ```bash
 WeatherController/
@@ -384,9 +358,9 @@ WeatherController/
 │   │   │       └── (pliki statyczne)
 ├── pom.xml
 ```
-### ⚠️ Komentarz do API
+### ⚠️ API Comment
 
-Obecne API może nie zapewniać pełnej **dokładności danych** pogodowych, ponieważ część danych (np. temperatura odczuwalna) jest wprowadzana ręcznie. Aby zwiększyć precyzję i spójność, warto rozważyć **integrację z zewnętrznymi źródłami danych pogodowych**.
+The current API may not provide complete **accuracy of weather data**, as some information (e.g., feels-like temperature) is entered manually. To improve precision and consistency, it is recommended to **integrate with external weather data sources**.
 
 
 
